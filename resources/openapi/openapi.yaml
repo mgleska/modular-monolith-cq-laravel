@@ -1,0 +1,1121 @@
+openapi: 3.0.3
+info:
+  title: 'MM-CQ-Laravel API Documentation'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+tags:
+  -
+    name: 'mobile API'
+    description: ''
+  -
+    name: CMS
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.'
+security:
+  -
+    default: []
+paths:
+  /api/customer/login:
+    post:
+      summary: 'ONYLY FOR DEMO: Login'
+      operationId: oNYLYFORDEMOLogin
+      description: 'Enpoint returns new JWT access token for supplied mobile user ID. If given user does not exist in database - will be created.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: 'JWT access_token'
+                properties:
+                  token:
+                    type: string
+                    example: 'JWT access_token'
+                    description: 'Must be a string.'
+                required:
+                  - token
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - 'mobile API'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                  description: 'Must be an integer.'
+                  example: 15
+              required:
+                - customerId
+      security: []
+  /api/customer/change-store:
+    post:
+      summary: 'Set store for mobile user'
+      operationId: setStoreForMobileUser
+      description: 'Endpoint sets given store for mobile user and returns new JWT access token with this store.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: 'JWT access_token'
+                properties:
+                  token:
+                    type: string
+                    example: 'JWT access_token'
+                    description: 'Must be a string.'
+                required:
+                  - token
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - 'mobile API'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: integer
+                  description: 'Must be an integer.'
+                  example: 10
+              required:
+                - storeId
+  /api/offer/list:
+    get:
+      summary: 'List offers'
+      operationId: listOffers
+      description: 'Show list of offers in selected store.'
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Must be an integer. Must be minimum <code>1</code>.'
+          example: 2
+          required: false
+          schema:
+            type: integer
+            description: 'Must be an integer. Must be minimum <code>1</code>.'
+            example: 2
+            nullable: true
+            minimum: 1
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  items:
+                    -
+                      id: 45
+                      productEan: '8410564006257'
+                      productName: 'Red square'
+                      price: 805
+                      lowestPrice: 950
+                  page: 1
+                  perPage: 5
+                properties:
+                  items:
+                    type: array
+                    example:
+                      -
+                        id: 45
+                        productEan: '8410564006257'
+                        productName: 'Red square'
+                        price: 805
+                        lowestPrice: 950
+                    description: 'Must be an array of objects.'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 45
+                        productEan:
+                          type: string
+                          example: '8410564006257'
+                        productName:
+                          type: string
+                          example: 'Red square'
+                        price:
+                          type: integer
+                          example: 805
+                        lowestPrice:
+                          type: integer
+                          example: 950
+                  page:
+                    type: integer
+                    example: 1
+                    description: 'Must be an integer.'
+                  perPage:
+                    type: integer
+                    example: 5
+                    description: 'Must be an integer.'
+                required:
+                  - items
+                  - page
+                  - perPage
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - 'mobile API'
+  '/api/offer/{id}':
+    get:
+      summary: 'Show offer'
+      operationId: showOffer
+      description: 'Show details of specific offer.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 45
+                  productEan: '8410564006257'
+                  productName: 'Red square'
+                  price: 805
+                  lowestPrice: 950
+                  imageUrl: 'https://my.images.com/red-square.png'
+                  quantityLevel: available
+                properties:
+                  id:
+                    type: integer
+                    example: 45
+                    description: 'Must be an integer.'
+                  productEan:
+                    type: string
+                    example: '8410564006257'
+                    description: 'Must be a string.'
+                  productName:
+                    type: string
+                    example: 'Red square'
+                    description: 'Must be a string.'
+                  price:
+                    type: integer
+                    example: 805
+                    description: 'Must be an integer.'
+                  lowestPrice:
+                    type: integer
+                    example: 950
+                    description: 'Must be an integer.'
+                    nullable: true
+                  imageUrl:
+                    type: string
+                    example: 'https://my.images.com/red-square.png'
+                    description: 'Must be a string.'
+                  quantityLevel:
+                    type: string
+                    example: available
+                    description: 'Must be one of: <code>UNKNOWN</code> (unknown), <code>AVAILABLE</code> (available), <code>AVAILABLE_LOW</code> (available_low).'
+                    enum:
+                      - unknown
+                      - available
+                      - available_low
+                required:
+                  - id
+                  - productEan
+                  - productName
+                  - price
+                  - imageUrl
+                  - quantityLevel
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - 'mobile API'
+    parameters:
+      -
+        in: path
+        name: id
+        description: ''
+        example: 16
+        required: true
+        schema:
+          type: integer
+  /api/store/list:
+    get:
+      summary: 'List stores'
+      operationId: listStores
+      description: 'Show list of stores.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  items:
+                    -
+                      id: 5
+                      externalId: r002
+                      name: Luboń
+                properties:
+                  items:
+                    type: array
+                    example:
+                      -
+                        id: 5
+                        externalId: r002
+                        name: Luboń
+                    description: 'Must be an array of objects.'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 5
+                        externalId:
+                          type: string
+                          example: r002
+                        name:
+                          type: string
+                          example: Luboń
+                required:
+                  - items
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - 'mobile API'
+  '/api/store/{id}':
+    get:
+      summary: 'Show store'
+      operationId: showStore
+      description: 'Show details of specific store.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 5
+                  externalId: r002
+                  name: Luboń
+                  address: 'ul. Poznańska 1'
+                properties:
+                  id:
+                    type: integer
+                    example: 5
+                    description: 'Must be an integer.'
+                  externalId:
+                    type: string
+                    example: r002
+                    description: 'Must be a string.'
+                  name:
+                    type: string
+                    example: Luboń
+                    description: 'Must be a string.'
+                  address:
+                    type: string
+                    example: 'ul. Poznańska 1'
+                    description: 'Must be a string.'
+                required:
+                  - id
+                  - externalId
+                  - name
+                  - address
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - 'mobile API'
+    parameters:
+      -
+        in: path
+        name: id
+        description: ''
+        example: 25
+        required: true
+        schema:
+          type: integer
+  /api/admin/user/login:
+    post:
+      summary: 'ONYLY FOR DEMO: Login CMS'
+      operationId: oNYLYFORDEMOLoginCMS
+      description: 'Enpoint returns token for supplied CMS user (email). If given user does not exist in database - will be created.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: 'Laravel Sanctum token'
+                properties:
+                  token:
+                    type: string
+                    example: 'Laravel Sanctum token'
+                    description: 'Must be a string.'
+                required:
+                  - token
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - CMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a string.'
+                  example: user@my.company.com
+              required:
+                - email
+      security: []
+  /api/admin/offer/filters:
+    get:
+      summary: 'Filters for offer list'
+      operationId: filtersForOfferList
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  stores:
+                    -
+                      storeId: 5
+                      storeName: Luboń
+                properties:
+                  stores:
+                    type: array
+                    example:
+                      -
+                        storeId: 5
+                        storeName: Luboń
+                    description: 'Must be an array of objects.'
+                    items:
+                      type: object
+                      properties:
+                        storeId:
+                          type: integer
+                          example: 5
+                        storeName:
+                          type: string
+                          example: Luboń
+                required:
+                  - stores
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - CMS
+  /api/admin/offer/list:
+    get:
+      summary: 'List offers'
+      operationId: listOffers
+      description: 'Show list of offers. With selection by store or product name.'
+      parameters:
+        -
+          in: query
+          name: search
+          description: 'Must be a string.'
+          example: ''
+          required: false
+          schema:
+            type: string
+            description: 'Must be a string.'
+            example: ''
+            nullable: true
+        -
+          in: query
+          name: storeId
+          description: 'Must be an integer. Must be minimum <code>1</code>.'
+          example: 5
+          required: false
+          schema:
+            type: integer
+            description: 'Must be an integer. Must be minimum <code>1</code>.'
+            example: 5
+            nullable: true
+            minimum: 1
+        -
+          in: query
+          name: page
+          description: 'Must be an integer. Must be minimum <code>1</code>.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Must be an integer. Must be minimum <code>1</code>.'
+            example: 1
+            nullable: true
+            minimum: 1
+        -
+          in: query
+          name: perPage
+          description: 'Must be an integer. Must be minimum <code>1</code>.'
+          example: 10
+          required: false
+          schema:
+            type: integer
+            description: 'Must be an integer. Must be minimum <code>1</code>.'
+            example: 10
+            nullable: true
+            minimum: 1
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  items:
+                    -
+                      id: 45
+                      storeName: Luboń
+                      visible: true
+                      productEan: '8410564006257'
+                      productName: 'Red square'
+                      price: 805
+                  page: 1
+                  perPage: 10
+                properties:
+                  items:
+                    type: array
+                    example:
+                      -
+                        id: 45
+                        storeName: Luboń
+                        visible: true
+                        productEan: '8410564006257'
+                        productName: 'Red square'
+                        price: 805
+                    description: 'Must be an array of objects.'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 45
+                        storeName:
+                          type: string
+                          example: Luboń
+                        visible:
+                          type: boolean
+                          example: true
+                        productEan:
+                          type: string
+                          example: '8410564006257'
+                        productName:
+                          type: string
+                          example: 'Red square'
+                        price:
+                          type: integer
+                          example: 805
+                  page:
+                    type: integer
+                    example: 1
+                    description: 'Must be an integer.'
+                  perPage:
+                    type: integer
+                    example: 10
+                    description: 'Must be an integer.'
+                required:
+                  - items
+                  - page
+                  - perPage
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - CMS
+  '/api/admin/offer/{id}':
+    get:
+      summary: 'Show offer'
+      operationId: showOffer
+      description: 'Show details of specific offer.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 45
+                  version: 1
+                  visible: true
+                  productEan: '8410564006257'
+                  productName: 'Red square'
+                  price: 805
+                  lowestPrice: 805
+                  imageUrl: 'https://my.images.com/red-square.png'
+                  quantity: 7000
+                properties:
+                  id:
+                    type: integer
+                    example: 45
+                    description: 'Must be an integer.'
+                  version:
+                    type: integer
+                    example: 1
+                    description: 'Must be an integer.'
+                  visible:
+                    type: boolean
+                    example: true
+                    description: 'Must be a boolean.'
+                  productEan:
+                    type: string
+                    example: '8410564006257'
+                    description: 'Must be a string.'
+                  productName:
+                    type: string
+                    example: 'Red square'
+                    description: 'Must be a string.'
+                  price:
+                    type: integer
+                    example: 805
+                    description: 'Must be an integer.'
+                  lowestPrice:
+                    type: integer
+                    example: 805
+                    description: 'Must be an integer.'
+                    nullable: true
+                  imageUrl:
+                    type: string
+                    example: 'https://my.images.com/red-square.png'
+                    description: 'Must be a string.'
+                  quantity:
+                    type: integer
+                    example: 7000
+                    description: 'Must be an integer.'
+                    nullable: true
+                required:
+                  - id
+                  - version
+                  - visible
+                  - productEan
+                  - productName
+                  - price
+                  - imageUrl
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - CMS
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'Offer ID'
+        example: 16
+        required: true
+        schema:
+          type: integer
+  /api/admin/offer/change-visibility:
+    post:
+      summary: 'Change visibility'
+      operationId: changeVisibility
+      description: 'The endpoint allows to change the visibility of offer.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '200 HTTP code on succes'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    field1:
+                      - 'Example error message for field1.'
+                    field2:
+                      - 'Example error message for field2.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message for field1. (and 1 more error)'
+                  errors:
+                    type: object
+                    properties:
+                      field1:
+                        type: array
+                        example:
+                          - 'Example error message for field1.'
+                        items:
+                          type: string
+                      field2:
+                        type: array
+                        example:
+                          - 'Example error message for field2.'
+                        items:
+                          type: string
+      tags:
+        - CMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 'Must be an integer.'
+                  example: 45
+                version:
+                  type: integer
+                  description: 'Must be an integer.'
+                  example: 2
+                visible:
+                  type: boolean
+                  description: 'Must be a boolean.'
+                  example: false
+              required:
+                - id
+                - version
+                - visible

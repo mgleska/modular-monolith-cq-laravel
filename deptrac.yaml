@@ -1,0 +1,313 @@
+deptrac:
+
+  paths:
+    - ./app
+
+#############################################
+  layers:
+
+
+
+    ### Customer
+    - name: CustomerAccess
+      collectors:
+        - type: directory
+          value: app/Customer/Access/.*
+    - name: CustomerAction
+      collectors:
+        - type: directory
+          value: app/Customer/Action/(Command|Query|Dto)/.*
+    - name: CustomerEnum
+      collectors:
+        - type: directory
+          value: app/Customer/Action/Enum/.*
+    - name: CustomerModel
+      collectors:
+        - type: directory
+          value: app/Customer/Model/.*
+    - name: CustomerOther
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              value: app/Customer/.*
+          must_not:
+            - type: layer
+              value: CustomerAccess
+            - type: layer
+              value: CustomerAction
+            - type: layer
+              value: CustomerEnum
+            - type: layer
+              value: CustomerModel
+
+    ### Offer
+    - name: OfferAccess
+      collectors:
+        - type: directory
+          value: app/Offer/Access/.*
+    - name: OfferAction
+      collectors:
+        - type: directory
+          value: app/Offer/Action/(Command|Query|Dto)/.*
+    - name: OfferEnum
+      collectors:
+        - type: directory
+          value: app/Offer/Action/Enum/.*
+    - name: OfferModel
+      collectors:
+        - type: directory
+          value: app/Offer/Model/.*
+    - name: OfferOther
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              value: app/Offer/.*
+          must_not:
+            - type: layer
+              value: OfferAccess
+            - type: layer
+              value: OfferAction
+            - type: layer
+              value: OfferEnum
+            - type: layer
+              value: OfferModel
+
+    ### Product
+    - name: ProductAccess
+      collectors:
+        - type: directory
+          value: app/Product/Access/.*
+    - name: ProductAction
+      collectors:
+        - type: directory
+          value: app/Product/Action/(Command|Query|Dto)/.*
+    - name: ProductEnum
+      collectors:
+        - type: directory
+          value: app/Product/Action/Enum/.*
+    - name: ProductModel
+      collectors:
+        - type: directory
+          value: app/Product/Model/.*
+    - name: ProductOther
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              value: app/Product/.*
+          must_not:
+            - type: layer
+              value: ProductAccess
+            - type: layer
+              value: ProductAction
+            - type: layer
+              value: ProductEnum
+            - type: layer
+              value: ProductModel
+
+    ### Store
+    - name: StoreAccess
+      collectors:
+        - type: directory
+          value: app/Store/Access/.*
+    - name: StoreAction
+      collectors:
+        - type: directory
+          value: app/Store/Action/(Command|Query|Dto)/.*
+    - name: StoreEnum
+      collectors:
+        - type: directory
+          value: app/Store/Action/Enum/.*
+    - name: StoreModel
+      collectors:
+        - type: directory
+          value: app/Store/Model/.*
+    - name: StoreOther
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              value: app/Store/.*
+          must_not:
+            - type: layer
+              value: StoreAccess
+            - type: layer
+              value: StoreAction
+            - type: layer
+              value: StoreEnum
+            - type: layer
+              value: StoreModel
+
+    ### User
+    - name: UserAccess
+      collectors:
+        - type: directory
+          value: app/User/Access/.*
+    - name: UserAction
+      collectors:
+        - type: directory
+          value: app/User/Action/(Command|Query|Dto)/.*
+    - name: UserEnum
+      collectors:
+        - type: directory
+          value: app/User/Action/Enum/.*
+    - name: UserModel
+      collectors:
+        - type: directory
+          value: app/User/Model/.*
+    - name: UserOther
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              value: app/User/.*
+          must_not:
+            - type: layer
+              value: UserAccess
+            - type: layer
+              value: UserAction
+            - type: layer
+              value: UserEnum
+            - type: layer
+              value: UserModel
+
+    ### other
+    - name: Shared
+      collectors:
+        - type: directory
+          value: app/Shared/.*
+        - type: php_internal
+          value: Closure
+
+    - name: Vendor
+      collectors:
+        - type: bool
+          must_not:
+            - type: directory
+              value: app/.*
+
+
+
+  #############################################
+  ruleset:
+
+    AllActionTemplate:
+      - CustomerAction
+      - CustomerEnum
+      - OfferAction
+      - OfferEnum
+      - ProductAction
+      - ProductEnum
+      - StoreAction
+      - StoreEnum
+      - UserAction
+      - UserEnum
+      - Shared
+      - Vendor
+
+
+    CustomerAccess:
+      - CustomerAction
+      - CustomerEnum
+      - Shared
+      - Vendor
+    CustomerAction:
+      - CustomerOther
+      - CustomerModel
+      - +AllActionTemplate
+    CustomerEnum:
+      - Shared
+      - Vendor
+    CustomerModel:
+      - CustomerEnum
+      - Shared
+      - Vendor
+    CustomerOther:
+      - +AllActionTemplate
+
+    OfferAccess:
+      - OfferAction
+      - OfferEnum
+      - Shared
+      - Vendor
+    OfferAction:
+      - OfferOther
+      - OfferModel
+      - +AllActionTemplate
+    OfferEnum:
+      - Shared
+      - Vendor
+    OfferModel:
+      - OfferEnum
+      - Shared
+      - Vendor
+    OfferOther:
+      - +AllActionTemplate
+
+    ProductAccess:
+      - ProductAction
+      - ProductEnum
+      - Shared
+      - Vendor
+    ProductAction:
+      - ProductOther
+      - ProductModel
+      - +AllActionTemplate
+    ProductEnum:
+      - Shared
+      - Vendor
+    ProductModel:
+      - ProductEnum
+      - Shared
+      - Vendor
+    ProductOther:
+      - +AllActionTemplate
+
+    StoreAccess:
+      - StoreAction
+      - StoreEnum
+      - Shared
+      - Vendor
+    StoreAction:
+      - StoreOther
+      - StoreModel
+      - +AllActionTemplate
+    StoreEnum:
+      - Shared
+      - Vendor
+    StoreModel:
+      - StoreEnum
+      - Shared
+      - Vendor
+    StoreOther:
+      - +AllActionTemplate
+
+    UserAccess:
+      - UserAction
+      - UserEnum
+      - Shared
+      - Vendor
+    UserAction:
+      - UserOther
+      - UserModel
+      - +AllActionTemplate
+    UserEnum:
+      - Shared
+      - Vendor
+    UserModel:
+      - UserEnum
+      - Shared
+      - Vendor
+    UserOther:
+      - +AllActionTemplate
+
+    Shared:
+      - Vendor
+      - Shared
+
+#############################################
+  skip_violations:
+    Module\Shared\Middleware\JwtAuth:
+      - Module\Customer\Action\Command\ValidateAccessTokenCmd

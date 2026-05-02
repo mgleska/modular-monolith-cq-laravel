@@ -1,0 +1,23 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "control_structure_continuation_position": {
+            "position": "next_line"
+        },
+        "concat_space": {
+            "spacing": "one"
+        },
+        "declare_strict_types": true,
+        "method_argument_space": {
+            "on_multiline": "ensure_fully_multiline"
+        },
+        "php_unit_method_casing": {
+            "case": "camel_case"
+        },
+        "blank_line_after_opening_tag": false,
+        "cast_spaces": {
+            "space": "none"
+        },
+        "no_unreachable_default_argument_value": false
+    }
+}

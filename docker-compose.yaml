@@ -1,0 +1,40 @@
+name: mm-cq-laravel
+
+services:
+
+  php-api:
+    build:
+      context: docker
+      target: dev
+    image: local-php-api-laravel
+    restart: unless-stopped
+    depends_on:
+      - database
+    volumes:
+      - .:/app:rw
+      - vendor:/app/vendor
+    ports:
+      - '${APP_PORT:-86}:8000'
+    environment:
+      DB_HOST: "database"
+      COMPOSER_HOME: "/home/www-data/.composer"
+    command: ["/bin/sh", "-c", "/app/start-app.sh dev ; sleep 36000"]
+
+  database:
+    image: mariadb:12.2-ubi
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: '${DB_PASSWORD:-db_password}'
+      MARIADB_ROOT_HOST: '%'
+      MARIADB_DATABASE: '${DB_DATABASE:-mm-cq-laravel}'
+      MARIADB_USER: '${DB_USERNAME:-app}'
+      MARIADB_PASSWORD: '${DB_PASSWORD:-db_password}'
+      MARIADB_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - mysql:/var/lib/mysql:rw
+    ports:
+      - '${FORWARD_DB_PORT:-63306}:3306'
+
+volumes:
+  mysql:
+  vendor:
