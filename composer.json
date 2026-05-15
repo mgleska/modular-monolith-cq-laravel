@@ -9,13 +9,13 @@
         "php": "^8.5",
         "ext-pdo": "*",
         "firebase/php-jwt": "^7.0",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^13.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
         "spatie/laravel-data": "^4.22"
     },
     "require-dev": {
-        "abrha/laravel-data-docs": "^0.2.0",
+        "abrha/laravel-data-docs": "^0.3",
         "barryvdh/laravel-ide-helper": "^3.7",
         "deniskorbakov/laravel-data-scribe": "^0.0.5",
         "deptrac/deptrac": "^4.6",
