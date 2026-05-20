@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "mgleska/modular-monolith-cq-laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Modular monolith with Command & Query pattern (Laravel version).",
+    "keywords": ["laravel", "modular monolith", "command and query"],
     "license": "MIT",
     "require": {
         "php": "^8.5",
@@ -72,13 +72,16 @@
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ],
         "pint": [
-            "@php vendor/bin/pint ./app --config ./pint.json"
+            "@php vendor/bin/pint ./app ./tests --config ./pint.json"
         ],
         "phpstan": [
             "@php vendor/bin/phpstan analyse --memory-limit=-1"
         ],
         "deptrac": [
             "@php ./vendor/bin/deptrac analyse --config-file=deptrac.yaml --cache-file=/tmp/deptrac.cache --report-uncovered"
+        ],
+        "coverage": [
+            "XDEBUG_MODE=coverage APP_ENV=testing php -d memory_limit=4G vendor/bin/phpunit --cache-directory=/tmp/phpunit --coverage-html coverage"
         ],
         "openapi": [
             "@php artisan scribe:generate --env docs"

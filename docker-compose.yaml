@@ -1,4 +1,4 @@
-name: mm-cq-laravel
+name: modular-monolith-cq-laravel
 
 services:
 
@@ -32,6 +32,7 @@ services:
       MARIADB_ALLOW_EMPTY_PASSWORD: 1
     volumes:
       - mysql:/var/lib/mysql:rw
+      - ./docker/test_db_init.sql:/docker-entrypoint-initdb.d/test_db_init.sql:ro
     ports:
       - '${FORWARD_DB_PORT:-63306}:3306'
 

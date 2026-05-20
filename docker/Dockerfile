@@ -25,8 +25,11 @@ FROM base AS dev
 USER root:root
 
 RUN apt-get install -y rsync && \
+    pecl install xdebug && \
     mkdir -p /home/www-data/.composer && \
     chown -R www-data:www-data /home/www-data
+
+COPY ./php-local.ini /usr/local/etc/php/conf.d/90-local.ini
 
 USER www-data:www-data
 

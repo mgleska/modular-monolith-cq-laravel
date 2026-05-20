@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Module\Customer\Access\Controller;
@@ -21,7 +20,7 @@ use Module\Shared\Attribute\UnauthorizedErrorDoc;
 class CustomerController
 {
     #[Unauthenticated]
-    #[Endpoint('ONYLY FOR DEMO: Login', 'Enpoint returns new JWT access token for supplied mobile user ID. If given user does not exist in database - will be created.')]
+    #[Endpoint('ONLY FOR DEMO: Login', 'Endpoint returns new JWT access token for supplied mobile user ID. If given user does not exist in database - will be created.')]
     #[ResponseDoc(TokenResponseDto::class, status: 200), ResponseData(TokenResponseDto::class)]
     #[JsonValidationErrorDoc]
     public function login(LoginRequestDto $dto, LoginCmd $action): TokenResponseDto

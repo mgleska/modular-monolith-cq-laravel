@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Module\Customer\Action\Command;
@@ -25,7 +24,7 @@ class ChangeStoreCmd
     public function handle(ChangeStoreRequestDto $dto): TokenResponseDto
     {
         if (! $this->checkStoreExistsQry->check($dto->storeId)) {
-            throw AppValidationException::withMessages(['storeId' => 'Invalid store id']);
+            throw AppValidationException::withMessages(['storeId' => 'Invalid store ID.']);
         }
 
         /** @var CustomerBag|null $bag */
@@ -34,9 +33,13 @@ class ChangeStoreCmd
             throw new AppNeverException('Customer is not authenticated.');
         }
 
-        Customer::query()
+        $count = Customer::query()
             ->where('id', $bag->customerId)
             ->update(['selected_store' => $dto->storeId]);
+
+        if ($count === 0) {
+            throw new AppNeverException('Customer not found.');
+        }
 
         $jwt = $this->tokenService->newAccessToken($bag->customerId, $dto->storeId);
 

@@ -25,9 +25,9 @@ security:
 paths:
   /api/customer/login:
     post:
-      summary: 'ONYLY FOR DEMO: Login'
-      operationId: oNYLYFORDEMOLogin
-      description: 'Enpoint returns new JWT access token for supplied mobile user ID. If given user does not exist in database - will be created.'
+      summary: 'ONLY FOR DEMO: Login'
+      operationId: oNLYFORDEMOLogin
+      description: 'Endpoint returns new JWT access token for supplied mobile user ID. If given user does not exist in database - will be created.'
       parameters: []
       responses:
         200:
@@ -598,9 +598,9 @@ paths:
           type: integer
   /api/admin/user/login:
     post:
-      summary: 'ONYLY FOR DEMO: Login CMS'
-      operationId: oNYLYFORDEMOLoginCMS
-      description: 'Enpoint returns token for supplied CMS user (email). If given user does not exist in database - will be created.'
+      summary: 'ONLY FOR DEMO: Login CMS'
+      operationId: oNLYFORDEMOLoginCMS
+      description: 'Endpoint returns token for supplied CMS user (email). If given user does not exist in database - will be created.'
       parameters: []
       responses:
         200:

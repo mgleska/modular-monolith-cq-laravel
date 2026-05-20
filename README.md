@@ -255,10 +255,15 @@ To generate `openapi.yaml` file use: `composer openapi`
 
 `composer pint`
 
+### Testing
+
+`php artisan test`
+
+`composer coverage`
 
 ## Usage:
 
-```bash
+```shell
 docker compose up
 ```
 

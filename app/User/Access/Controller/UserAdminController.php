@@ -17,7 +17,7 @@ use Module\User\Action\Dto\SanctumTokenResponseDto;
 #[Group('CMS')]
 class UserAdminController
 {
-    #[Endpoint('ONYLY FOR DEMO: Login CMS', 'Enpoint returns token for supplied CMS user (email). If given user does not exist in database - will be created.')]
+    #[Endpoint('ONLY FOR DEMO: Login CMS', 'Endpoint returns token for supplied CMS user (email). If given user does not exist in database - will be created.')]
     #[Unauthenticated]
     #[ResponseDoc(SanctumTokenResponseDto::class), ResponseData(SanctumTokenResponseDto::class)]
     #[JsonValidationErrorDoc]
