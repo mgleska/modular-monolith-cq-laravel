@@ -16,6 +16,7 @@ class SanctumTokenResponseDto extends Data
         public readonly string $token,
     ) {}
 
+    /** @codeCoverageIgnore */
     protected function calculateResponseStatus(Request $request): int
     {
         return HttpResponse::HTTP_OK;

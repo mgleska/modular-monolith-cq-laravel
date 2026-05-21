@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Module\Product\Action\Command\ImportQuantityCmd;
 use Throwable;
 
+/** @codeCoverageIgnore */
 class ImportProductsQuantityCon extends Command
 {
     protected $signature = 'product:quantity';

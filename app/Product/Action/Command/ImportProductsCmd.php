@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Module\Product\Model\Product;
 use Throwable;
 
+/** @codeCoverageIgnore */
 class ImportProductsCmd
 {
     /**

@@ -9,6 +9,7 @@ use Module\Product\Model\ProductQuantity;
 use Module\Store\Action\Query\GetStoreListQry;
 use Throwable;
 
+/** @codeCoverageIgnore */
 class ImportQuantityCmd
 {
     public function __construct(

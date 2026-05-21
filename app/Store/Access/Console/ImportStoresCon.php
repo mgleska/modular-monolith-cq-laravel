@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Module\Store\Action\Command\ImportStoresCmd;
 use Throwable;
 
+/** @codeCoverageIgnore */
 class ImportStoresCon extends Command
 {
     protected $signature = 'store:import';

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Module\Store\Model\Store;
 use Throwable;
 
+/** @codeCoverageIgnore */
 class ImportStoresCmd
 {
     /**

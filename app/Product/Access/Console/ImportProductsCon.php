@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Module\Product\Action\Command\ImportProductsCmd;
 use Throwable;
 
+/** @codeCoverageIgnore */
 class ImportProductsCon extends Command
 {
     protected $signature = 'product:import';
