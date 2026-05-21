@@ -33,8 +33,8 @@ class AdminGetOfferDetailsQry
             productName: $offer->product_name ?? $product->name ?? '',
             price: $offer->price,
             lowestPrice: $offer->lowest_price,
-            imageUrl: $product->imageUrl,
-            quantity: $product->quantity,
+            imageUrl: $product->imageUrl ?? '',
+            quantity: $product?->quantity,
         );
     }
 }

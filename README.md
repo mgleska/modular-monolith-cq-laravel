@@ -512,6 +512,6 @@ So backend may answer with a user-friendly message that user's command cannot be
 This approach allows to encapsulate domain logic related to the command "I would like to send this shipment for acceptance" in PHP class designed strictly for this one command.
 
 
-## ToDo
+## In progress
 
 Unit and feature tests.

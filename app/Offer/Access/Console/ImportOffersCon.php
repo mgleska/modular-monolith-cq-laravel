@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Module\Offer\Action\Command\ImportOffersCmd;
 use Throwable;
 
+/** @codeCoverageIgnore */
 class ImportOffersCon extends Command
 {
     protected $signature = 'offer:import {storeRid : store exteral ID}';

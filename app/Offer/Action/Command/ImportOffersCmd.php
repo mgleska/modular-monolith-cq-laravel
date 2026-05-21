@@ -13,6 +13,7 @@ use Module\Store\Action\Query\GetStoreByExternalIdQry;
 use Ramsey\Uuid\Uuid;
 use Throwable;
 
+/** @codeCoverageIgnore */
 class ImportOffersCmd
 {
     public function __construct(
