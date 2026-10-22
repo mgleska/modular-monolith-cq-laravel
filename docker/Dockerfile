@@ -1,4 +1,4 @@
-FROM php:8.5.5-cli-trixie AS base
+FROM php:8.5.12-cli-trixie AS base
 
 RUN docker-php-ext-install pdo_mysql && \
     curl -o /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar && \
